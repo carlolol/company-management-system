@@ -1,7 +1,7 @@
 <template lang="pug">
   v-container(
-    class="fill-height"
     fluid
+    class="fill-height"
   )
     v-row(
       align="center"
