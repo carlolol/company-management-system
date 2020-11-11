@@ -1,29 +1,34 @@
 <template lang="pug">
-  v-app
-    v-app-bar(
-      app
-      dark
-      color="primary"
-    )
-      div.d-flex.align-center
-        span Company Management System
+  v-app#app
+    nav-bar
     v-main
-      hello-world
-  </v-app>
+      router-view
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import NavBar from './components/NavBar';
 
 export default {
   name: 'App',
-
   components: {
-    HelloWorld,
+    NavBar,
   },
-
   data: () => ({
-    //
+    
   }),
+  computed: {
+    isLoggedIn() {
+      return false;
+    }
+  }
 };
 </script>
+
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+</style>
