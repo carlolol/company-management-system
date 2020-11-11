@@ -20,32 +20,50 @@
           )
             v-toolbar-title Login
           v-card-text
-            v-form
+            v-form(v-model="valid")
               v-text-field(
-                label="Login"
-                name="login"
-                prepend-icon="mdi-account"
+                v-model="username"
+                required
                 type="text"
+                label="Login"
+                prepend-icon="mdi-account"
+                :rules="[ v => !!v || 'Username is required' ]"
               )
               v-text-field(
-                id="password"
-                label="Password"
-                name="password"
-                prepend-icon="mdi-lock"
+                v-model="password"
+                required
                 type="password"
+                label="Password"
+                prepend-icon="mdi-lock"
+                :rules="[ v => !!v || 'Password is required' ]"
               )
           v-card-actions
             v-spacer
-            v-btn(color="primary") Login
+            v-btn(
+              color="primary"
+              :disabled="!valid"
+              @click="onClickLogin"
+            ) Login
 </template>
 
 <script>
 export default {
 	name: 'login',
-	data() {
-		return { email: '', password: '' };
-	},
+	data: () => ({
+    username: '', 
+    password: '',
+    valid: false,
+	}),
 	methods: {
+    async onClickLogin() {
+      if (this.valid) {
+        await this.$store.dispatch('auth/login', {
+          username: this.username,
+          password : this.password,
+        });
+        this.$router.push('/');
+      }
+    }
 	}
 };
 </script>

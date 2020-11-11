@@ -1,9 +1,11 @@
 import store from './store';
+import faker from 'faker';
 
 /**
  * @typedef {object} User
- * @property {string} firstName
- * @property {string} lastName
+ * @property {string} username
+ * @property {string} password
+ * @property {string} token
  */
 
 store.registerModule('auth', {
@@ -14,8 +16,10 @@ store.registerModule('auth', {
     user: null,
   },
   getters: {
-    isLoggedIn({ user }) {
-      return !!user;
+    isAuthenticated({ user }) {
+      let credentials = localStorage.getItem('credentials');
+      credentials = credentials ? JSON.parse(credentials) : null;
+      return !!user || credentials;
     },
   },
   actions: {
@@ -24,19 +28,19 @@ store.registerModule('auth', {
      * @param {User} user
      */
     login(ctx, user) {
-      const credentials = localStorage.getItem('credentials');
+      const token = faker.finance.litecoinAddress()
+        + faker.finance.litecoinAddress()
+        + faker.finance.litecoinAddress();
 
-      if (credentials) {
-        ctx.commit('setUser', credentials);
-      } else {
-        localStorage.setItem('credentials', JSON.stringify(user));
-        ctx.commit('setUser', user);
-      }
+      const generatedCredentials = { username: user.username, token };
 
-      return user;
+      localStorage.setItem('credentials', JSON.stringify(generatedCredentials));
+      ctx.commit('setUser', generatedCredentials);
+
+      return generatedCredentials;
     },
 
-    logout() {
+    logout(ctx) {
       ctx.commit('setUser');
       localStorage.clear();
     },

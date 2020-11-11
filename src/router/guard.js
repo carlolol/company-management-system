@@ -1,27 +1,16 @@
+import store from '../store';
 import router from './routes';
-
-const isLoggedIn = false;
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (isLoggedIn) {
+    if (store.getters['auth/isAuthenticated']) {
       next();
     } else {
-      next({
-        path: '/login',
-        query: {
-          redirect: to.fullPath
-        }
-      });
+      next({ path: '/login' });
     }
   } else if (to.matched.some(record => record.meta.requiresGuest)) {
-    if (isLoggedIn) {
-      next({
-        path: '/',
-        query: {
-          redirect: to.fullPath
-        }
-      });
+    if (store.getters['auth/isAuthenticated']) {
+      next({ path: '/' });
     } else {
       next();
     }
