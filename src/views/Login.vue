@@ -20,7 +20,10 @@
           )
             v-toolbar-title Login
           v-card-text
-            v-form(v-model="valid")
+            v-form(
+              v-model="valid"
+              @keydown.native.enter="onClickLogin"
+            )
               v-text-field(
                 v-model="username"
                 required
@@ -42,7 +45,7 @@
             v-btn(
               color="primary"
               :disabled="!valid"
-              @click="onClickLogin"
+              @click.stop="onClickLogin"
             ) Login
 </template>
 
@@ -55,7 +58,7 @@ export default {
     valid: false,
 	}),
 	methods: {
-    async onClickLogin() {
+    async onClickLogin () {
       if (this.valid) {
         await this.$store.dispatch('auth/login', {
           username: this.username,
