@@ -16,11 +16,6 @@ export default {
   data: () => ({
     
   }),
-  computed: {
-    isLoggedIn() {
-      return false;
-    }
-  }
 };
 </script>
 
