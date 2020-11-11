@@ -1,6 +1,6 @@
 <template lang="pug">
   v-app#app
-    nav-bar
+    nav-bar(v-if="isAuthenticated")
     v-main
       router-view
 </template>
@@ -16,6 +16,11 @@ export default {
   data: () => ({
     
   }),
+  computed: {
+    isAuthenticated () {
+      return this.$store.getters['auth/isAuthenticated'];
+    },
+  },
 };
 </script>
 

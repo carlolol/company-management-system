@@ -12,6 +12,7 @@
         sm="8"
         md="3"
       )
+        h1 Welcome
         v-card.elevation-12
           v-toolbar(
             color="primary"
