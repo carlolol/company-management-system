@@ -5,12 +5,10 @@
 <script>
 export default {
   name: 'dashboard',
-  data(){
-    return {
-      employees: []
-    }
-  },
-  created() {
+  data: () => ({
+    employees: [],
+  }),
+  created () {
   }
 }
 </script>
