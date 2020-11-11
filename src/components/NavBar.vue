@@ -1,13 +1,12 @@
 <template lang="pug">
-  v-app-bar(
-    app
-    dark
-    color="primary"
-  )
-    div.d-flex.align-center
-      span Company Management System
-    v-spacer
-    div(v-if="isAuthenticated").d-flex.align-center
+  div
+    v-app-bar(
+      app
+      dark
+      color="primary"
+    )
+      v-app-bar-nav-icon(@click.stop="showSideBar = !showSideBar")
+      v-spacer
       v-menu(
         offset-y
         open-on-hover
@@ -19,26 +18,39 @@
             fab
             outlined
           )
-            v-avatar(
-              color="primary"
-            ) {{ loggedInUser.username }}
+            v-avatar(color="primary") {{ loggedInUser.username }}
         v-list
           v-list-item(@click="onClickLogout")
             v-list-item-title Logout
+    v-navigation-drawer(
+      v-model="showSideBar"
+      :clipped="!$isSmallAndDown"
+      :app="!$isSmallAndDown"
+      :absolute="$isSmallAndDown"
+      :temporary="$isSmallAndDown"
+    )
+      v-list(nav)
+        v-list-item-group
+          v-list-item(
+            v-for="(navigation, i) in navigations"
+            :key="i"
+            :to="navigation.path"
+          )
+            v-list-item-title {{ navigation.name }}
 </template>
 
 <script>
+import navigations from '@/constants/navigations';
+
 export default {
 	name: 'navbar',
 	data: () => ({
-
+    showSideBar: false,
+    navigations,
 	}),
 	created () {
   },
   computed: {
-    isAuthenticated () {
-      return this.$store.getters['auth/isAuthenticated'];
-    },
     loggedInUser () {
       return this.$store.getters['auth/user'];
     },
