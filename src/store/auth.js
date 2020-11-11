@@ -16,10 +16,15 @@ store.registerModule('auth', {
     user: null,
   },
   getters: {
-    isAuthenticated({ user }) {
+    isAuthenticated ({ user }) {
       let credentials = localStorage.getItem('credentials');
       credentials = credentials ? JSON.parse(credentials) : null;
       return !!user || credentials;
+    },
+    user ({ user }) {
+      let credentials = localStorage.getItem('credentials');
+      credentials = credentials ? JSON.parse(credentials) : null;
+      return user || credentials;
     },
   },
   actions: {
@@ -27,7 +32,7 @@ store.registerModule('auth', {
      * @param ctx
      * @param {User} user
      */
-    login(ctx, user) {
+    login (ctx, user) {
       const token = faker.finance.litecoinAddress()
         + faker.finance.litecoinAddress()
         + faker.finance.litecoinAddress();
@@ -40,9 +45,9 @@ store.registerModule('auth', {
       return generatedCredentials;
     },
 
-    logout(ctx) {
+    logout (ctx) {
       ctx.commit('setUser');
-      localStorage.clear();
+      localStorage.removeItem('credentials');
     },
   },
   mutations: {
@@ -50,7 +55,7 @@ store.registerModule('auth', {
      * @param state
      * @param {User} user
      */
-    setUser(state, user) {
+    setUser (state, user) {
       state.user = user || null;
     },
   },
