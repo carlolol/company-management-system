@@ -28,7 +28,7 @@
                 v-model="username"
                 required
                 type="text"
-                label="Login"
+                label="Username"
                 prepend-icon="mdi-account"
                 :rules="[ v => !!v || 'Username is required' ]"
               )
