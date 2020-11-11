@@ -1,15 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import './auth';
+import './company';
+import './department';
+import './employee';
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+export { default } from './store';
