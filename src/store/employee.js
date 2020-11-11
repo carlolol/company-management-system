@@ -1,13 +1,18 @@
+import Vue from 'vue';
 import store from './store';
 import faker from 'faker';
 
 /**
  * @typedef {object} Employee
- * @property {string} id
+ * @property {string} uuid
  * @property {string} companyId
  * @property {string} departmentId
- * @property {string} name
- * @property {string} description
+ * @property {string} firstName
+ * @property {string} lastName
+ * @property {'male' | 'female' | 'any'} sex
+ * @property {number} birthDate
+ * @property {string} civilStatus
+ * @property {string} jobPosition
  */
 
 store.registerModule('employee', {
@@ -30,7 +35,7 @@ store.registerModule('employee', {
     createEmployee(ctx, payload) {
       if (!payload.companyId) throw new Error('Company id is required');
 
-      payload.id = faker.random.uuid();
+      payload.uuid = faker.random.uuid();
       ctx.commit('updateEmployees', { items: [ payload ], upsert: true });
       return payload;
     },
@@ -40,10 +45,10 @@ store.registerModule('employee', {
      * @param {Employee} payload
      */
     updateEmployee(ctx, payload) {
-      if (!payload.id) throw new Error('Id is required');
+      if (!payload.uuid) throw new Error('Id is required');
 
       const employees = ctx.state.employees;
-      const index = employees.findIndex(c => c.id === payload.id);
+      const index = employees.findIndex(c => c.id === payload.uuid);
 
       if (!~index) throw new Error('Id does not exist');
 
@@ -56,10 +61,10 @@ store.registerModule('employee', {
      * @param {Employee} payload
      */
     deleteEmployee(ctx, payload) {
-      if (!payload.id) throw new Error('Id is required');
+      if (!payload.uuid) throw new Error('Id is required');
 
       const employees = ctx.state.employees;
-      const index = employees.findIndex(c => c.id === payload.id);
+      const index = employees.findIndex(c => c.id === payload.uuid);
 
       if (!~index) throw new Error('Id does not exist');
 
