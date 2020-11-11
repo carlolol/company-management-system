@@ -20,7 +20,10 @@ store.registerModule('department', {
   getters: {
     getDepartmentById: state => id => {
       return state.departments.find(department => department.id = id);
-    }
+    },
+    departmentCount ({ departments }) {
+      return departments ? departments.length : 0;
+    },
   },
   actions: {
     /**

@@ -20,7 +20,10 @@ store.registerModule('company', {
   getters: {
     getCompanyById: state => id => {
       return state.companies.find(company => company.id = id);
-    }
+    },
+    companyCount ({ companies }) {
+      return companies ? companies.length : 0;
+    },
   },
   actions: {
     /**

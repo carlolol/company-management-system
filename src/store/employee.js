@@ -25,7 +25,10 @@ store.registerModule('employee', {
   getters: {
     getEmployeeById: state => id => {
       return state.employees.find(employee => employee.id = id);
-    }
+    },
+    employeeCount ({ employees }) {
+      return employees ? employees.length : 0;
+    },
   },
   actions: {
     /**
