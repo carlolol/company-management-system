@@ -27,7 +27,7 @@ store.registerModule('company', {
      * @param ctx
      * @param {Company} payload
      */
-    createCompany(ctx, payload) {
+    createCompany (ctx, payload) {
       payload.id = faker.random.uuid();
       ctx.commit('updateCompanies', { items: [ payload ], upsert: true });
       return payload;
@@ -37,7 +37,7 @@ store.registerModule('company', {
      * @param ctx
      * @param {Company} payload
      */
-    updateCompany(ctx, payload) {
+    updateCompany (ctx, payload) {
       if (!payload.id) throw new Error('Id is required');
 
       const companies = ctx.state.companies;
@@ -53,7 +53,7 @@ store.registerModule('company', {
      * @param ctx
      * @param {Company} payload
      */
-    deleteCompany(ctx, payload) {
+    deleteCompany (ctx, payload) {
       if (!payload.id) throw new Error('Id is required');
 
       const companies = ctx.state.companies;
@@ -73,7 +73,7 @@ store.registerModule('company', {
      * @param {boolean} opts.upsert
      * @param {boolean} opts.remove
      */
-    updateCompanies({ companies }, opts) {
+    updateCompanies ({ companies }, opts) {
       const { items, upsert, remove } = opts;
 
       items.forEach(item => {

@@ -32,7 +32,7 @@ store.registerModule('employee', {
      * @param ctx
      * @param {Employee} payload
      */
-    createEmployee(ctx, payload) {
+    createEmployee (ctx, payload) {
       if (!payload.companyId) throw new Error('Company id is required');
 
       payload.uuid = faker.random.uuid();
@@ -44,7 +44,7 @@ store.registerModule('employee', {
      * @param ctx
      * @param {Employee} payload
      */
-    updateEmployee(ctx, payload) {
+    updateEmployee (ctx, payload) {
       if (!payload.uuid) throw new Error('Id is required');
 
       const employees = ctx.state.employees;
@@ -60,7 +60,7 @@ store.registerModule('employee', {
      * @param ctx
      * @param {Employee} payload
      */
-    deleteEmployee(ctx, payload) {
+    deleteEmployee (ctx, payload) {
       if (!payload.uuid) throw new Error('Id is required');
 
       const employees = ctx.state.employees;
@@ -80,7 +80,7 @@ store.registerModule('employee', {
      * @param {boolean} opts.upsert
      * @param {boolean} opts.remove
      */
-    updateEmployees({ employees }, opts) {
+    updateEmployees ({ employees }, opts) {
       const { items, upsert, remove } = opts;
 
       items.forEach(item => {

@@ -27,7 +27,7 @@ store.registerModule('department', {
      * @param ctx
      * @param {Department} payload
      */
-    createDepartment(ctx, payload) {
+    createDepartment (ctx, payload) {
       if (!payload.companyId) throw new Error('Company id is required');
 
       payload.id = faker.random.uuid();
@@ -39,7 +39,7 @@ store.registerModule('department', {
      * @param ctx
      * @param {Department} payload
      */
-    updateDepartment(ctx, payload) {
+    updateDepartment (ctx, payload) {
       if (!payload.id) throw new Error('Id is required');
 
       const departments = ctx.state.departments;
@@ -55,7 +55,7 @@ store.registerModule('department', {
      * @param ctx
      * @param {Department} payload
      */
-    deleteDepartment(ctx, payload) {
+    deleteDepartment (ctx, payload) {
       if (!payload.id) throw new Error('Id is required');
 
       const departments = ctx.state.departments;
@@ -75,7 +75,7 @@ store.registerModule('department', {
      * @param {boolean} opts.upsert
      * @param {boolean} opts.remove
      */
-    updateDepartments({ departments }, opts) {
+    updateDepartments ({ departments }, opts) {
       const { items, upsert, remove } = opts;
 
       items.forEach(item => {
