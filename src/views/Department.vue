@@ -164,6 +164,7 @@ export default {
     save () {
       if (this.valid) {
         const action = ~this.editedIndex ? 'update' : 'create';
+        if (action === 'update') delete this.editedItem.companyDetails;
         this.$store.dispatch(`department/${action}Department`, this.editedItem);
         this.close();
       }
