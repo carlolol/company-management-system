@@ -2,6 +2,8 @@ import store from '../store';
 import router from './routes';
 
 router.beforeEach((to, from, next) => {
+  store.dispatch('auth/revalidateLogin');
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters['auth/isAuthenticated']) {
       next();

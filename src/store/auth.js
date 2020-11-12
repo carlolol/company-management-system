@@ -19,7 +19,7 @@ store.registerModule('auth', {
     isAuthenticated ({ user }) {
       let credentials = localStorage.getItem('credentials');
       credentials = credentials ? JSON.parse(credentials) : null;
-      return !!user || credentials;
+      return !!user || !!credentials;
     },
     user ({ user }) {
       let credentials = localStorage.getItem('credentials');
@@ -43,6 +43,13 @@ store.registerModule('auth', {
       ctx.commit('setUser', generatedCredentials);
 
       return generatedCredentials;
+    },
+
+    revalidateLogin (ctx) {
+      if (ctx.getters.isAuthenticated) {
+        const credentials = JSON.parse(localStorage.getItem('credentials'));
+        ctx.dispatch('login', credentials);
+      }
     },
 
     logout (ctx) {
