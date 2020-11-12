@@ -19,7 +19,7 @@ store.registerModule('department', {
   },
   getters: {
     getDepartmentById: state => id => {
-      return state.departments.find(department => department.id = id);
+      return state.departments.find(department => department.id === id);
     },
     departmentCount ({ departments }) {
       return departments ? departments.length : 0;
@@ -29,6 +29,9 @@ store.registerModule('department', {
         ...department,
         companyDetails: rootGetters['company/getCompanyById'](department.companyId),
       }));
+    },
+    getDepartmentsByCompanyId: state => companyId => {
+      return state.departments.filter(department => department.companyId === companyId);
     },
   },
   actions: {
