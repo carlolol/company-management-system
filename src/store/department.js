@@ -24,6 +24,12 @@ store.registerModule('department', {
     departmentCount ({ departments }) {
       return departments ? departments.length : 0;
     },
+    getDepartmentsWithCompanyDetails (state, getters, rootState, rootGetters) {
+      return state.departments.map(department => ({
+        ...department,
+        companyDetails: rootGetters['company/getCompanyById'](department.companyId),
+      }));
+    },
   },
   actions: {
     /**
@@ -95,6 +101,6 @@ store.registerModule('department', {
 
         if (upsert) departments.push(item);
       });
-    }
+    },
   },
 })
