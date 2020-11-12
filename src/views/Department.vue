@@ -20,6 +20,7 @@
               v-spacer
               v-dialog(
                 v-model="dialog"
+                scrollable
                 max-width="500px"
               )
                 template(#activator="{ on, attrs }")
