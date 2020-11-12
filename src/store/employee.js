@@ -11,7 +11,7 @@ import faker from 'faker';
  * @property {string} lastName
  * @property {'male' | 'female' | 'any'} sex
  * @property {number} birthDate
- * @property {string} civilStatus
+ * @property {'single' | 'married' | 'widowed' | 'divorced' | 'separated'} civilStatus
  * @property {string} jobPosition
  */
 
@@ -24,10 +24,17 @@ store.registerModule('employee', {
   },
   getters: {
     getEmployeeById: state => id => {
-      return state.employees.find(employee => employee.id = id);
+      return state.employees.find(employee => employee.id === id);
     },
     employeeCount ({ employees }) {
       return employees ? employees.length : 0;
+    },
+    getEmployeesWithCompleteDetails (state, getters, rootState, rootGetters) {
+      return state.employees.map(employee => ({
+        ...employee,
+        companyDetails: rootGetters['company/getCompanyById'](employee.companyId),
+        departmentDetails: rootGetters['department/getDepartmentById'](employee.departmentId),
+      }));
     },
   },
   actions: {
@@ -51,7 +58,7 @@ store.registerModule('employee', {
       if (!payload.uuid) throw new Error('Id is required');
 
       const employees = ctx.state.employees;
-      const index = employees.findIndex(c => c.id === payload.uuid);
+      const index = employees.findIndex(c => c.uuid === payload.uuid);
 
       if (!~index) throw new Error('Id does not exist');
 
@@ -67,7 +74,7 @@ store.registerModule('employee', {
       if (!payload.uuid) throw new Error('Id is required');
 
       const employees = ctx.state.employees;
-      const index = employees.findIndex(c => c.id === payload.uuid);
+      const index = employees.findIndex(c => c.uuid === payload.uuid);
 
       if (!~index) throw new Error('Id does not exist');
 
