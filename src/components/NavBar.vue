@@ -27,7 +27,7 @@
       v-model="showSideBar"
       :clipped="!$isSmallAndDown"
       :app="!$isSmallAndDown"
-      :absolute="$isSmallAndDown"
+      :fixed="$isSmallAndDown"
       :temporary="$isSmallAndDown"
     )
       v-list(nav)
