@@ -10,7 +10,8 @@ export const routes = [
     name: 'dashboard',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard'),
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      name: 'Dashboard',
     },
   },
   {
@@ -18,7 +19,8 @@ export const routes = [
     name: 'company',
     component: () => import(/* webpackChunkName: "company" */ '@/views/Company'),
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      name: 'Company',
     },
   },
   {
@@ -26,7 +28,8 @@ export const routes = [
     name: 'department',
     component: () => import(/* webpackChunkName: "department" */ '@/views/Department'),
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      name: 'Department',
     },
   },
   {
@@ -34,7 +37,8 @@ export const routes = [
     name: 'employee',
     component: () => import(/* webpackChunkName: "employee" */ '@/views/Employee'),
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      name: 'Employee',
     },
   },
   {

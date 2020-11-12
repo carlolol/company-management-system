@@ -6,6 +6,7 @@
       color="primary"
     )
       v-app-bar-nav-icon(@click.stop="showSideBar = !showSideBar")
+      h2 {{ pageName }}
       v-spacer
       v-menu(
         offset-y
@@ -54,6 +55,9 @@ export default {
     loggedInUser () {
       return this.$store.getters['auth/user'];
     },
+    pageName () {
+      return (this.$route.meta || {}).name || ''; 
+    }
   },
 	methods: {
     async onClickLogout () {
