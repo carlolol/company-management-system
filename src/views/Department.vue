@@ -170,13 +170,6 @@ export default {
       }
     },
 
-    customFilter (item, queryText, itemText) {
-      const name = itemText.toLowerCase();
-      const searchText = queryText.toLowerCase();
-
-      return ~name.indexOf(searchText);
-    },
-
   },
 }
 </script>
