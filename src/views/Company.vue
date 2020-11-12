@@ -34,35 +34,40 @@
                   v-card-title
                     span(class="headline") {{ formTitle }}
                   v-card-text
-                    v-container
-                      v-row
-                        v-col(cols="12")
-                          v-text-field(
-                            v-model="editedItem.name"
-                            label="Name"
-                          )
-                        v-col(cols="12")
-                          v-text-field(
-                            v-model="editedItem.location"
-                            label="Location"
-                          )
-                        v-col(cols="12")
-                          v-textarea(
-                            v-model="editedItem.description"
-                            label="Description"
-                          )
+                    v-form(
+                      v-model="valid"
+                      ref="form"
+                      @keydown.native.enter.prevent="save"
+                    )
+                      v-container
+                        v-row
+                          v-col(cols="12")
+                            v-text-field(
+                              v-model="editedItem.name"
+                              required
+                              label="Name"
+                              :rules="[ v => !!v || 'Name is required' ]"
+                            )
+                          v-col(cols="12")
+                            v-text-field(
+                              v-model="editedItem.location"
+                              label="Location"
+                            )
+                          v-col(cols="12")
+                            v-textarea(
+                              v-model="editedItem.description"
+                              label="Description"
+                            )
                   v-card-actions
                     v-spacer
                     v-btn(
-                      dark
                       depressed
-                      color="blue darken-1"
+                      color="blue darken-1 white--text"
+                      :disabled="!valid"
                       @click="save"
                     ) Save
                     v-btn(
-                      dark
                       text
-                      color="blue darken-1"
                       @click="close"
                     ) Close
 
@@ -87,6 +92,7 @@ export default {
   name: 'company',
   data: () => ({
     dialog: false,
+    valid: false,
     headers: [
       { text: 'ID', value: 'id' },
       { text: 'Name', value: 'name' },
@@ -137,17 +143,20 @@ export default {
     },
 
     close () {
-      this.dialog = false
+      this.dialog = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+        this.$refs.form.resetValidation();
       })
     },
 
     save () {
-      const action = ~this.editedIndex ? 'update' : 'create';
-      this.$store.dispatch(`company/${action}Company`, this.editedItem);
-      this.close();
+      if (this.valid) {
+        const action = ~this.editedIndex ? 'update' : 'create';
+        this.$store.dispatch(`company/${action}Company`, this.editedItem);
+        this.close();
+      }
     },
   },
 }
